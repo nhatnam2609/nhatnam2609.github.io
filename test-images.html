@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .image-container { margin: 10px; display: inline-block; }
+        img { width: 200px; height: 200px; object-fit: cover; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>🐕 Harley Image Loading Test</h1>
+    <p>Testing if images load correctly from both local and production URLs...</p>
+    
+    <div id="results"></div>
+    
+    <script>
+        const images = [
+            '464238462_2977522335749122_3712708099135219592_n.jpg',
+            '465934288_18087284203508720_7068473592747322461_n.jpg',
+            '481056168_3106727909495230_7229821473583843831_n.jpg',
+            '481078363_3106728119495209_1758772835201712311_n.jpg',
+            '488910445_3145909788910375_2853851464851964595_n.jpg',
+            '491294664_3156908667810487_4651249414444524873_n.jpg'
+        ];
+
+        const resultsDiv = document.getElementById('results');
+
+        images.forEach((filename, index) => {
+            const container = document.createElement('div');
+            container.className = 'image-container';
+            
+            const title = document.createElement('h3');
+            title.textContent = `Picture ${index + 1}`;
+            container.appendChild(title);
+
+            // Test production URL
+            const prodImg = document.createElement('img');
+            prodImg.src = `https://nhatnam.me/images/${filename}`;
+            prodImg.onload = () => {
+                const status = document.createElement('p');
+                status.textContent = '✅ Production URL works';
+                status.className = 'success';
+                container.appendChild(status);
+            };
+            prodImg.onerror = () => {
+                const status = document.createElement('p');
+                status.textContent = '❌ Production URL failed';
+                status.className = 'error';
+                container.appendChild(status);
+            };
+            container.appendChild(prodImg);
+
+            resultsDiv.appendChild(container);
+        });
+    </script>
+</body>
+</html> 
